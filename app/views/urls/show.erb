@@ -1,7 +1,36 @@
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
+      <h1 id="header">Url Specific Data</h1>
+      <h1 ><%= @source.identifier%>/<%= @path %></h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
       <h1><%= @source.identifier%>/<%= @path %></h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <h4>Longest Response Time: <%= @longest_response_time.to_i %></h4>
+      <h4>Shortest Response Time: <%= @shortest_response_time.to_i %></h4>
+      <h4>Average Response Time: <%= @average_response_time.to_i %></h4>
+      <h4>HTTP Verbs:</h4>
+      <% @requests.each do |request| %>
+        <%=request %>
+      </br>
+        <% end %>
+        <h4>Most Popular Referrers: </h4>
+        <% @most_popular_referrers.each do |referrer| %>
+          <%= referrer[0] %>
+          </br>
+        <% end %>
     </div>
   </div>
 </div>

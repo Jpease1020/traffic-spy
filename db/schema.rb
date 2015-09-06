@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20150906223910) do
     t.inet     "ip"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.text     "request_type"
   end
 
   create_table "sources", force: :cascade do |t|
