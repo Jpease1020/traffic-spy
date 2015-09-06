@@ -6,3 +6,24 @@
     </div>
   </div>
 </div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <h1><%= @source.identifier%>/<%= @path %></h1>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <h4>HTTP Verbs:</h4>
+      <% @requests.each do |request| %>
+        <%=request %>
+      </br>
+        <% end %>
+    </div>
+  </div>
+</div>

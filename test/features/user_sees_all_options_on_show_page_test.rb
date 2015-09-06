@@ -23,9 +23,8 @@ class ShowPageFeatureTest < FeatureTest
   end
 
   def test_it_shows_the_header
-    visit '/sources/jumpstartlab'
-    within("#identifier") do
-      assert page.has_content?("Dasboard")
+    within("#header") do
+      assert page.has_content?("Dashboard")
     end
   end
 
