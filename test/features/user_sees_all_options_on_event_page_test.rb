@@ -10,9 +10,9 @@ class EvenPageTest < FeatureTest
   def setup
     DatabaseCleaner.start
 
-    attributes = {identifier: "jumpstartlab"
+    attributes = {identifier: "jumpstartlab",
                   rootUrl: "http://jumpstartlab.com"}
-    post '/sources' attributes
+    post '/sources', attributes
 
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
@@ -24,7 +24,7 @@ class EvenPageTest < FeatureTest
                         "requestedAt":"2013-02-16 21:38:28 -0700",
                         "respondedIn":37,"ip":"63.29.38.211"}'
     end
-    
+
     def teardown
       DatabaseCleaner.clean
     end

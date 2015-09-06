@@ -10,9 +10,8 @@ class UrlSpecificDataPageTest < FeatureTest
   def setup
     DatabaseCleaner.start
 
-    attributes = {identifier: "jumpstartlab",
-                  rootUrl: "http://jumpstartlab.com"
-                }
+    attributes = { identifier: "jumpstartlab",
+                   rootUrl: "http://jumpstartlab.com" }
     post "/sources", attributes
 
     assert_equal 1, Source.count

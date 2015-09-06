@@ -10,25 +10,32 @@ class ShowPageFeatureTest < FeatureTest
   def setup
     DatabaseCleaner.start
 
-    attributes = { identifier: "jumpstartlab",
-                   rootUrl: "http://jumpstartlab.com" }
+    attributes = {identifier: "jumpstartlab",
+                  rootUrl: "http://jumpstartlab.com"}
     post "/sources", attributes
 
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
 
 
-    @payload = 'payload={"url":"http://jumpstartlab.com/blog","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","requestedAt":"2013-02-16 21:38:28 -0700",
-               "respondedIn":37,"ip":"63.29.38.211"}'
+    @payload = 'payload={"url":"http://jumpstartlab.com/blog",
+                        "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
+                        "resolutionWidth":"1920",
+                        "resolutionHeight":"1280",
+                        "requestedAt":"2013-02-16 21:38:28 -0700",
+                        "respondedIn":37,"ip":"63.29.38.211"}'
   end
 
   def test_it_shows_the_header
+    post "/sources/jumpstartlab/data", @payload
+    visit '/sources/jumpstartlab'
     within("#header") do
       assert page.has_content?("Dashboard")
     end
   end
 
   def test_it_shows_the_most_urls
+    post "/sources/jumpstartlab/data", @payload
     visit '/'
     assert page.has_content?("Hello, Traffic Spyer")
     visit '/sources/jumpstartlab'
@@ -65,6 +72,19 @@ class ShowPageFeatureTest < FeatureTest
     end
     click_link "Events"
     assert_equal "/sources/jumpstartlab/events", current_path
+  end
+
+  def test_page_has_link_to_each_url_to_see_specific_data
+    post "/sources/jumpstartlab/data", @payload
+    visit '/sources/jumpstartlab'
+    assert find_link("http://localhost:9393/sources/jumpstartlab/urls/blog")
+  end
+
+  def test_page_has_link_to_events
+    post "/sources/jumpstartlab/data", @payload
+    visit '/sources/jumpstartlab'
+    click_link "Events"
+    assert "/sources/jumpstartlab/events", current_path
   end
 
   def teardown
