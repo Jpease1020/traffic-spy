@@ -26,6 +26,11 @@
         <%=request %>
       </br>
         <% end %>
+        <h4>Most Popular Referrers: </h4>
+        <% @most_popular_referrers.each do |referrer| %>
+          <%= referrer[0] %>
+          </br>
+        <% end %>
     </div>
   </div>
 </div>
