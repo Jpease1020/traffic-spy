@@ -12,4 +12,10 @@ class Response < ActiveRecord::Base
       url.responses
     end.flatten
   end
+
+  def http_verbs(source)
+    source.responses.map do |response|
+      response.request_type
+    end.uniq
+  end
 end

@@ -44,7 +44,9 @@ module TrafficSpy
         response = Response.find_or_create_by(
                      requested_at: payload_params['requestedAt'],
                      responded_in: payload_params['respondedIn'],
-                     ip: payload_params['ip'])
+                     ip: payload_params['ip'],
+                     request_type: payload_params['requestType'])
+
         browser = Browser.find_or_create_by(browser: browser, operating_system:
         operating_system)
         resolution = Resolution.find_or_create_by(
@@ -94,9 +96,10 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-      @source = Source.find_by_identifier(identifier)
-      @paths = Url.new.path_parser(@source)
-      @path = path
+      @source   = Source.find_by_identifier(identifier)
+      @paths    = Url.new.path_parser(@source)
+      @path     = path
+      @requests = Response.new.http_verbs(@source)
 
       if @paths.include?("/" + path)
         status 200
