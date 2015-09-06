@@ -50,6 +50,7 @@ module TrafficSpy
         resolution = Resolution.find_or_create_by(
                         resolution_width: payload_params['resolutionWidth'],
                         resolution_height: payload_params['resolutionHeight'])
+        referrer = Referrer.find_or_create_by(referred_by: payload_params['referredBy'])
          #this is where we add everything else
 
         unless source.nil?
@@ -58,7 +59,8 @@ module TrafficSpy
                                   url_id: url.id,
                                   resolution_id: resolution.id,
                                   browser_id: browser.id,
-                                  response_id: response.id)
+                                  response_id: response.id,
+                                  referrer_id: referrer.id)
 
             if payload.save
               status 200
