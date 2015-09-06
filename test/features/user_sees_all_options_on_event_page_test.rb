@@ -24,11 +24,7 @@ class EvenPageTest < FeatureTest
                         "requestedAt":"2013-02-16 21:38:28 -0700",
                         "respondedIn":37,"ip":"63.29.38.211"}'
     end
-
-    def test
-
-    end
-
+    
     def teardown
       DatabaseCleaner.clean
     end
