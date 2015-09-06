@@ -15,10 +15,12 @@
   </div>
 </div>
 
-
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
+      <h4>Longest Response Time: <%= @longest_response_time.to_i %></h4>
+      <h4>Shortest Response Time: <%= @shortest_response_time.to_i %></h4>
+      <h4>Average Response Time: <%= @average_response_time.to_i %></h4>
       <h4>HTTP Verbs:</h4>
       <% @requests.each do |request| %>
         <%=request %>
