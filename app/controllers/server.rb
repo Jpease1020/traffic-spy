@@ -96,10 +96,13 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-      @source   = Source.find_by_identifier(identifier)
-      @paths    = Url.new.path_parser(@source)
-      @path     = path
-      @requests = Response.new.http_verbs(@source)
+      @source                 = Source.find_by_identifier(identifier)
+      @paths                  = Url.new.path_parser(@source)
+      @path                   = path
+      @requests               = Response.new.http_verbs(@source)
+      @longest_response_time  = Response.new.longest_response_time(@source)
+      @shortest_response_time = Response.new.shortest_response_time(@source)
+      @average_response_time  = Response.new.average_response_time(@source)
 
       if @paths.include?("/" + path)
         status 200
