@@ -5,8 +5,7 @@ class Browser < ActiveRecord::Base
   validates :browser, presence: true, uniqueness: true
   validates :operating_system, presence: true, uniqueness: true
 
-  def most_popular_browsers(path)
-    url = Url.find_by(url: path)
+  def most_popular_browsers(url)
     if url.nil?
       return []
     end
@@ -14,8 +13,7 @@ class Browser < ActiveRecord::Base
     group_count.sort_by { |_, count| count }.reverse.flatten
   end
 
-  def most_popular_operating_systems(path)
-    url = Url.find_by(url: path)
+  def most_popular_operating_systems(url)
     if url.nil?
       return []
     end

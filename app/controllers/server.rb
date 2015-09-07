@@ -88,6 +88,7 @@ module TrafficSpy
       @os_counts          = Browser.new.list_operating_systems(@source)
       @resolutions        = Resolution.new.resolution_size(@source)
       @paths              = Url.new.path_parser(@source)
+      @average_response_times = Response.new.average_response_times(@source)
 
       erb :show
     end
@@ -102,9 +103,9 @@ module TrafficSpy
       @longest_response_time    = Response.new.longest_response_time(@url)
       @shortest_response_time   = Response.new.shortest_response_time(@url)
       @average_response_time    = Response.new.average_response_time(@url)
-      @most_popular_referrers   = Referrer.new.most_popular_referrers(@full_path)
-      @most_popular_browsers    = Browser.new.most_popular_browsers(@full_path)
-      @most_popular_os          = Browser.new.most_popular_operating_systems(@full_path)
+      @most_popular_referrers   = Referrer.new.most_popular_referrers(@url)
+      @most_popular_browsers    = Browser.new.most_popular_browsers(@url)
+      @most_popular_os          = Browser.new.most_popular_operating_systems(@url)
 
       if @paths.include?("/" + path)
         status 200

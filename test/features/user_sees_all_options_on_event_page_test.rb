@@ -1,6 +1,6 @@
 require "./test/test_helper"
 
-class EvenPageTest < FeatureTest
+class EventPageTest < FeatureTest
   include Rack::Test::Methods
 
   def app
@@ -27,35 +27,45 @@ class EvenPageTest < FeatureTest
                         "requestedAt":"2013-02-16 21:38:28 -0700",
                         "respondedIn":37,"ip":"63.29.38.211"}'
     post "/sources/jumpstartlab/data", @payload
-    end
 
-    def test_page_shows_header
-      visit '/sources/jumpstartlab/events'
-      within("#header") do
-        assert page.has_content?("Events Dashboard")
-        assert page.has_content?("Jumpstartlab")
-      end
-    end
+    visit '/sources/jumpstartlab/events'
+  end
 
-    def test_page_shows_most_received_to_least_received
-      visit '/sources/jumpstartlab/events'
-      within("#most_received_events") do
-        assert page.has_content?("Most Received to Least Received Events")
-        # save_and_open_page
-        assert page.has_content?("socialLogin")
-      end
+  def test_it_shows_a_nav_bar
+    within("#top-bar") do
+      assert page.has_content?("You are a Spy!")
     end
+  end
 
-    def test_page_shows_even_specific_data
-      visit '/sources/jumpstartlab/events'
-      within("#event_specific_data") do
-        assert page.has_content?("Event Specifc Data")
-        assert page.has_content?("http://localhost:9393/sources/jumpstartlab/events/socialLogin")
-      end
+  def test_page_shows_header
+    within("#header") do
+      assert page.has_content?("Events Dashboard")
+      assert page.has_content?("Jumpstartlab")
     end
+  end
 
-    def teardown
-      DatabaseCleaner.clean
+  def test_page_shows_most_received_to_least_received
+    within("#most_received_events") do
+      assert page.has_content?("Most Received to Least Received Events")
+      assert page.has_content?("socialLogin")
     end
+  end
 
+  def test_page_shows_even_specific_data
+    within("#event_specific_data") do
+      assert page.has_content?("Event Specifc Data")
+      assert page.has_content?("http://localhost:9393/sources/jumpstartlab/events/socialLogin")
+    end
+  end
+
+  def test_it_shows_a_footer
+    within("#footer") do
+      assert page.has_content?("LLC")
+    end
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
 end
+

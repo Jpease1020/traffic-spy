@@ -29,6 +29,12 @@ class UrlSpecificDataPageTest < FeatureTest
 
   end
 
+  def test_it_shows_a_nav_bar
+    within("#top-bar") do
+      assert page.has_content?("You are a Spy!")
+    end
+  end
+
   def test_header_is_displayed
     visit '/sources/jumpstartlab/urls/blog'
     within("#header") do
@@ -99,6 +105,12 @@ class UrlSpecificDataPageTest < FeatureTest
     within("#os") do
       assert page.has_content?("Most Popular Operating System")
       assert page.has_content?("Macintosh")
+    end
+  end
+
+   def test_it_shows_a_footer
+    within("#footer") do
+      assert page.has_content?("LLC")
     end
   end
 

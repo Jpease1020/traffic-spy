@@ -9,6 +9,10 @@ class Url < ActiveRecord::Base
 
   validates :url, presence: true, uniqueness: true
 
+  def average_response_time
+    responses.average(:responded_in)
+  end
+
   def full_path(source, partial_path)
     (source.root_url + "/" + partial_path)
   end

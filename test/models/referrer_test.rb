@@ -34,7 +34,9 @@ class ReferrerTest < Minitest::Test
     post "/sources/jumpstartlab/data", @payload_2
     post "/sources/jumpstartlab/data", @payload_3
 
-    assert_equal ["http://jumpstartlab.com", 2, "http://facebook.com/bad6e", 1],  Referrer.new.most_popular_referrers("http://jumpstartlab.com/blog")
+    url = Url.find_by(url: "http://jumpstartlab.com/blog")
+
+    assert_equal ["http://jumpstartlab.com", 2, "http://facebook.com/bad6e", 1],  Referrer.new.most_popular_referrers(url)
 
     assert_equal 3, Payload.count
     assert_equal 2, Referrer.count

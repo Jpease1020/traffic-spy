@@ -29,6 +29,12 @@ class ShowPageFeatureTest < FeatureTest
     visit '/sources/jumpstartlab'
   end
 
+  def test_it_shows_a_nav_bar
+    within("#top-bar") do
+      assert page.has_content?("You are a Spy!")
+    end
+  end
+
   def test_it_shows_the_header
     within("#header") do
       assert page.has_content?("Dashboard")
@@ -46,7 +52,7 @@ class ShowPageFeatureTest < FeatureTest
   def test_it_shows_the_average_response
     within("#average_responses") do
       assert page.has_content?("Average Response Times")
-      #THERE STILL NEEDS TO BE ASSERTION HERE
+      assert page.has_content?("http://jumpstartlab.com/blog: 37ms")
     end
   end
 
@@ -83,6 +89,12 @@ class ShowPageFeatureTest < FeatureTest
   def test_page_has_link_to_events
     click_link "Events"
     assert "/sources/jumpstartlab/events", current_path
+  end
+
+   def test_it_shows_a_footer
+    within("#footer") do
+      assert page.has_content?("LLC")
+    end
   end
 
   def teardown
