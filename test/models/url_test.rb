@@ -42,6 +42,8 @@ class UrlTest < Minitest::Test
 
     assert_equal "http://jumpstartlab.com/blog" , url[0]
     assert_equal "http://jumpstartlab.com/story" , url[1]
+    assert_equal 3, Payload.count
+    assert_equal 2, Url.count
   end
 
   def test_it_displays_path_specific_url_data
@@ -57,6 +59,8 @@ class UrlTest < Minitest::Test
     url = Url.new.path_parser(source)
 
     assert_equal ["/blog", "/blog", "/story"] , url
+    assert_equal 3, Payload.count
+    assert_equal 2, Url.count
   end
 
   def teardown

@@ -62,6 +62,8 @@ class ResponseTest < Minitest::Test
     source = Source.first
 
     assert_equal ['POST', 'GET'], Response.new.http_verbs(source)
+    assert_equal 2, Payload.count
+    assert_equal 2, Response.count
   end
 
 
