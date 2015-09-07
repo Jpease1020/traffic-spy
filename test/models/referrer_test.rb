@@ -36,6 +36,8 @@ class ReferrerTest < Minitest::Test
 
     assert_equal ["http://jumpstartlab.com", 2, "http://facebook.com/bad6e", 1],  Referrer.new.most_popular_referrers("http://jumpstartlab.com/blog")
 
+    assert_equal 3, Payload.count
+    assert_equal 2, Referrer.count
   end
 
   def teardown

@@ -66,6 +66,8 @@ class BrowserTest < Minitest::Test
     browsers = Browser.new.most_popular_browsers("http://jumpstartlab.com/blog")
 
     assert_equal ["Chrome", 3] , browsers.map { |browser| browser }
+    assert_equal 3, Payload.count
+    assert_equal 1, Browser.count
   end
 
   def teardown
