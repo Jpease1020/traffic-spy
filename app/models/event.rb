@@ -12,4 +12,8 @@ class Event < ActiveRecord::Base
     end
     responses_by_hour
   end
+
+  def most_received_events(source)
+    source.events.order(:event_name).uniq
+  end
 end

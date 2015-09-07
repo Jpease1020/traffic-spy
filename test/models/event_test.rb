@@ -44,8 +44,33 @@ class EventTest < Minitest::Test
     event = Event.find_by(event_name: "socialA")
     visits_per_hour = Event.new.visits_per_hour(event)
 
-    assert_equal  [0, 0, 1, 2, 2], visits_per_hour.last(5).map { |_, count|
-      count }
+    assert_equal 1, visits_per_hour[4]
+    assert_equal 2, visits_per_hour[5]
+    assert_equal 0, visits_per_hour[12]
+  end
+
+  def test_it_finds_the_most_to_least_received_events
+    @payload_1 = 'payload={"eventName": "socialLogin1","ip":"63.29.38.211"}'
+    @payload_2 = 'payload={"eventName": "socialLogin1","ip":"63.29.38.212"}'
+    @payload_3 = 'payload={"eventName": "socialLogin2","ip":"63.29.38.213"}'
+    @payload_4 = 'payload={"eventName": "socialLogin1","ip":"63.29.38.214"}'
+    @payload_5 = 'payload={"eventName": "socialLogin2","ip":"63.29.38.215"}'
+
+    source = Source.first
+
+    post "/sources/jumpstartlab/data", @payload_1
+    post "/sources/jumpstartlab/data", @payload_2
+    post "/sources/jumpstartlab/data", @payload_3
+    post "/sources/jumpstartlab/data", @payload_4
+    post "/sources/jumpstartlab/data", @payload_5
+
+
+    event = Event.new.most_received_events(source)
+    assert_equal "socialLogin1", event.first.event_name
+    assert_equal "socialLogin2", event.last.event_name
+
+    assert_equal 2, Event.count
+    assert_equal 5, Payload.count
   end
 
   def teardown

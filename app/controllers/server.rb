@@ -117,8 +117,9 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/events' do |identifier|
-      @source = Source.find_by_identifier(identifier)
-      @events = @source.events
+      @source               = Source.find_by_identifier(identifier)
+      @events               = @source.events
+      @most_received_events = Event.new.most_received_events(@source)
 
       if @events.empty?
         status 404

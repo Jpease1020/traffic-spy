@@ -1,1 +1,39 @@
-<h1><%= @source.identifier.capitalize %> Events Dashboard</h1>
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <h1><%= @source.identifier.capitalize %> Events Dashboard</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <div id="most_received_events">
+        <h3>Most Received to Least Received Events</h3>
+        <ol>
+          <% @most_received_events.each do |event| %>
+            <li><%= event.event_name %></li>
+            <% end %>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <div id="event_specific_data">
+        <h3>Event Specifc Data</h3>
+        <% @events.each do |event| %>
+          <a href="http://localhost:9393/sources/<%= @source.identifier %>/events/<%= event.event_name %>">http://localhost:9393/sources/<%= @source.identifier %>/events/<%= event.event_name %></a>
+        </br>
+          <% end %>
+         </br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= erb(:'partials/footer', :layout => true) %>
