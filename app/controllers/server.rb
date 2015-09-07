@@ -88,6 +88,7 @@ module TrafficSpy
       @os_counts          = Browser.new.list_operating_systems(@source)
       @resolutions        = Resolution.new.resolution_size(@source)
       @paths              = Url.new.path_parser(@source)
+      @average_response_times = Response.new.average_response_times(@source)
 
       erb :show
     end
