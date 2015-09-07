@@ -97,14 +97,15 @@ module TrafficSpy
       @source                   = Source.find_by_identifier(identifier)
       @paths                    = Url.new.path_parser(@source)
       @full_path                = Url.new.full_path(@source, path)
+      @url                      = Url.find_by(url: @full_path)
       @path                     = path
-      @requests                 = Response.new.http_verbs(@source)
-      @longest_response_time    = Response.new.longest_response_time(@source)
-      @shortest_response_time   = Response.new.shortest_response_time(@source)
-      @average_response_time    = Response.new.average_response_time(@source)
-      @most_popular_referrers   = Referrer.new.most_popular_referrers(@full_path)
-      @most_popular_browsers    = Browser.new.most_popular_browsers(@full_path)
-      @most_popular_os          = Browser.new.most_popular_operating_systems(@full_path)
+      @requests                 = Response.new.http_verbs(@url)
+      @longest_response_time    = Response.new.longest_response_time(@url)
+      @shortest_response_time   = Response.new.shortest_response_time(@url)
+      @average_response_time    = Response.new.average_response_time(@url)
+      @most_popular_referrers   = Referrer.new.most_popular_referrers(@url)
+      @most_popular_browsers    = Browser.new.most_popular_browsers(@url)
+      @most_popular_os          = Browser.new.most_popular_operating_systems(@url)
 
       if @paths.include?("/" + path)
         status 200

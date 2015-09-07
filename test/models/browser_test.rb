@@ -63,7 +63,9 @@ class BrowserTest < Minitest::Test
     post "/sources/jumpstartlab/data", @payload_2
     post "/sources/jumpstartlab/data", @payload_3
 
-    browsers = Browser.new.most_popular_browsers("http://jumpstartlab.com/blog")
+    url = Url.find_by(url: "http://jumpstartlab.com/blog")
+
+    browsers = Browser.new.most_popular_browsers(url)
 
     assert_equal ["Chrome", 3] , browsers.map { |browser| browser }
     assert_equal 3, Payload.count
