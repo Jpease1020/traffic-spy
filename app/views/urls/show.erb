@@ -2,7 +2,7 @@
   <div class="row well">
     <div class="col-md-12">
       <h1 id="header">Url Specific Data</h1>
-      <h1 ><%= @source.identifier%>/<%= @path %></h1>
+      <h1 id="source_path"><%= @source.identifier%>/<%= @path %></h1>
     </div>
   </div>
 </div>
@@ -10,23 +10,20 @@
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
-      <h1><%= @source.identifier%>/<%= @path %></h1>
-    </div>
-  </div>
-</div>
+      <h4 id="longest">Longest Response Time: <%= @longest_response_time.to_i %></h4>
+      <h4 id="shortest">Shortest Response Time: <%= @shortest_response_time.to_i %></h4>
+      <h4 id="average">Average Response Time: <%= @average_response_time.to_i %></h4>
 
-<div class="container">
-  <div class="row well">
-    <div class="col-md-12">
-      <h4>Longest Response Time: <%= @longest_response_time.to_i %></h4>
-      <h4>Shortest Response Time: <%= @shortest_response_time.to_i %></h4>
-      <h4>Average Response Time: <%= @average_response_time.to_i %></h4>
-      <h4>HTTP Verbs:</h4>
-      <% @requests.each do |request| %>
-        <%= request %>
-      </br>
-        <% end %>
-        <h4>Most Popular Referrers: </h4>
+      <div id="http_verbs">
+        <h4>HTTP Verbs:</h4>
+        <% @requests.each do |request| %>
+          <%=request %>
+        </br>
+          <% end %>
+      </div>
+
+      <div id="referrer">
+        <h4 id="referrers">Most Popular Referrers: </h4>
         <% @most_popular_referrers.each do |referrer| %>
           <%= referrer %>
           </br>
@@ -42,6 +39,7 @@
           <%= os %>
           </br>
         <% end %>
+      </div>
     </div>
   </div>
 </div>

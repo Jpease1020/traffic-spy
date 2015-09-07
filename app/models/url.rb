@@ -14,6 +14,8 @@ class Url < ActiveRecord::Base
   end
 
   def most_requested(source)
+    # require 'pry'
+    # binding.pry
     slugs = source.urls.group(:url).count
     slugs.map do |slug|
       slug[0]
