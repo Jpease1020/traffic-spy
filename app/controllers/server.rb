@@ -9,7 +9,7 @@ module TrafficSpy
     post "/sources" do
      source_params = {}
      source_params[:root_url]    = params[:rootUrl]
-     source_params[:identifier]  = params[:identifier]
+     source_params[:identifier  ]  = params[:identifier]
 
      source = Source.new(source_params)
 
