@@ -1,7 +1,9 @@
-  <div class="container">
+<div class="container">
   <div class="row well">
     <div class="col-md-12">
-      <h1 id="header"><%= @source.identifier.capitalize %> Dashboard</h1>
+      <div id= 'header'>
+        <h1><%= @source.identifier.capitalize %> Dashboard</h1>
+      </div>
     </div>
   </div>
 </div>
@@ -9,56 +11,68 @@
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
-      <h3 id="most_viewed"> Most Viewed Urls</h3>
-      <ul>
+      <div id="most_viewed">
+        <h3> Most Viewed Urls</h3>
+        <ul>
         <% @slugs.each do |slug| %>
           <li><%= slug %></li>
         <% end %>
-      </ul>
-      </br>
+        </ul>
+        </br>
+      </div>
 
-      <h3 id="average_responses">Average Response Times</h3>
+      <div id="average_responses">
+        <h3>Average Response Times</h3>
+          <ul>
+            <li>PUT stuff here</li>
+        </ul>
+        </br>
+      </div>
+
+      <div id="breakdown">
+        <h3> Web Broswer Breakdown</h3>
         <ul>
-          <li>PUT stuff here</li>
-      </ul>
-      </br>
+          <% @browser_counts.each do |b| %>
+           <li><%= b[0]%>: <%= b[1]%></li>
+            <% end %>
+          </ul>
+        </br>
+      </div>
 
-      <h3 id="breakdown"> Web Broswer Breakdown</h3>
-      <ul>
-        <% @browser_counts.each do |b| %>
-         <li><%= b[0]%>: <%= b[1]%></li>
+      <div id="resolution">
+        <h3>Screen Resolutions</h3>
+        <ul>
+          <% @resolutions.each do |resolution| %>
+            <li><%= resolution.resolution_width %> x <%=
+            resolution.resolution_height %></li>
           <% end %>
         </ul>
-      </br>
+        </br>
+      </div>
 
-      <h3 id="resolution">Screen Resolutions</h3>
-      <ul>
-        <% @resolutions.each do |resolution| %>
-          <li><%= resolution.resolution_width %> x <%=
-          resolution.resolution_height %></li>
-        <% end %>
-      </ul>
-      </br>
-
-      <h3 id="os">Operating System Breakdown</h3>
-      <ul>
-        <% @os_counts.each do |os| %>
-          <li><%= os[0] %>: <%= os[1] %></li>
-        <% end %>
-      </ul>
+      <div id="os">
+        <h3>Operating System Breakdown</h3>
+        <ul>
+          <% @os_counts.each do |os| %>
+            <li><%= os[0] %>: <%= os[1] %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="container">
-  <div class="row well">
-    <div class="col-md-12">
-      <h3 >Url Specific Data</h3>
-    </br>
-       <% @paths.each do |path| %>
-          <a href="http://localhost:9393/sources/<%= @source.identifier %>/urls<%= path %>">http://localhost:9393/sources/<%= @source.identifier %>/urls<%= path %></a>
+<div id="url">
+  <div class="container">
+    <div class="row well">
+      <div class="col-md-12">
+        <h3 >Url Specific Data</h3>
         </br>
-       <% end %>
+         <% @paths.each do |path| %>
+            <a href="http://localhost:9393/sources/<%= @source.identifier %>/urls<%= path %>">http://localhost:9393/sources/<%= @source.identifier %>/urls<%= path %></a>
+          </br>
+         <% end %>
+      </div>
     </div>
   </div>
 </div>

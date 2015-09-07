@@ -24,65 +24,63 @@ class ShowPageFeatureTest < FeatureTest
                         "resolutionHeight":"1280",
                         "requestedAt":"2013-02-16 21:38:28 -0700",
                         "respondedIn":37,"ip":"63.29.38.211"}'
+
+    post "/sources/jumpstartlab/data", @payload
+    visit '/sources/jumpstartlab'
   end
 
   def test_it_shows_the_header
-    post "/sources/jumpstartlab/data", @payload
-    visit '/sources/jumpstartlab'
     within("#header") do
       assert page.has_content?("Dashboard")
+      assert page.has_content?("Jumpstartlab")
     end
   end
 
   def test_it_shows_the_most_urls
-    post "/sources/jumpstartlab/data", @payload
-    visit '/'
-    assert page.has_content?("Hello, Traffic Spyer")
-    visit '/sources/jumpstartlab'
     within("#most_viewed") do
       assert page.has_content?("Most Viewed Urls")
+      assert page.has_content?("http://jumpstartlab.com/blog")
     end
   end
 
   def test_it_shows_the_average_response
-    visit '/sources/jumpstartlab'
     within("#average_responses") do
       assert page.has_content?("Average Response Times")
+      #THERE STILL NEEDS TO BE ASSERTION HERE
     end
   end
 
   def test_it_shows_the_web_browser_breakdown_info
-    visit '/sources/jumpstartlab'
     within("#breakdown") do
       assert page.has_content?("Web Broswer Breakdown")
+      assert page.has_content?("Chrome: 1")
     end
   end
 
   def test_it_shows_screen_resultion_info
-    visit '/sources/jumpstartlab'
     within("#resolution") do
       assert page.has_content?("Screen Resolutions")
+      assert page.has_content?("1920 x 1280")
     end
   end
 
   def test_it_shows_the_operating_system_info
-    visit '/sources/jumpstartlab'
     within("#os") do
       assert page.has_content?("Operating System Breakdown")
+      assert page.has_content?("Macintosh")
     end
     click_link "Events"
     assert_equal "/sources/jumpstartlab/events", current_path
   end
 
   def test_page_has_link_to_each_url_to_see_specific_data
-    post "/sources/jumpstartlab/data", @payload
-    visit '/sources/jumpstartlab'
+    within("#url") do
+      assert page.has_content?("http://localhost:9393/sources/jumpstartlab/urls/blog")
+    end
     assert find_link("http://localhost:9393/sources/jumpstartlab/urls/blog")
   end
 
   def test_page_has_link_to_events
-    post "/sources/jumpstartlab/data", @payload
-    visit '/sources/jumpstartlab'
     click_link "Events"
     assert "/sources/jumpstartlab/events", current_path
   end
