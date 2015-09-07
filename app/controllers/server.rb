@@ -52,6 +52,7 @@ module TrafficSpy
         resolution = Resolution.find_or_create_by(
                         resolution_width: payload_params['resolutionWidth'],
                         resolution_height: payload_params['resolutionHeight'])
+        referrer = Referrer.find_or_create_by(referred_by: payload_params['referredBy'])
          #this is where we add everything else
 
         unless source.nil?
@@ -60,7 +61,8 @@ module TrafficSpy
                                   url_id: url.id,
                                   resolution_id: resolution.id,
                                   browser_id: browser.id,
-                                  response_id: response.id)
+                                  response_id: response.id,
+                                  referrer_id: referrer.id)
 
             if payload.save
               status 200
@@ -103,6 +105,7 @@ module TrafficSpy
       @longest_response_time  = Response.new.longest_response_time(@source)
       @shortest_response_time = Response.new.shortest_response_time(@source)
       @average_response_time  = Response.new.average_response_time(@source)
+      @most_popular_referrers = Referrer.new.most_popular_referrers(@source)
 
       if @paths.include?("/" + path)
         status 200
