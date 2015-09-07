@@ -28,17 +28,21 @@
           <%= referrer %>
           </br>
         <% end %>
+      </div>
+      <div id="browser">
         <h4>Most Popular Browsers: </h4>
         <% @most_popular_browsers.each do |browser| %>
           <%= browser %>
           </br>
         <% end %>
-
+      </div>
+      <div id="os">
         <h4>Most Popular Operating Systems: </h4>
         <% @most_popular_os.each do |os| %>
           <%= os %>
           </br>
         <% end %>
+      </div>
       </div>
     </div>
   </div>
