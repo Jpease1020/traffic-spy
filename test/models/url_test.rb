@@ -44,7 +44,7 @@ class BrowserTest < Minitest::Test
     assert_equal "http://jumpstartlab.com/story" , url[1]
   end
 
-  def test_it_displays_url_specific_data
+  def test_it_displays_path_specific_url_data
     @payload_1 = 'payload={"url":"http://jumpstartlab.com/blog","ip":"63.29.38.211"}'
     @payload_2 = 'payload={"url":"http://jumpstartlab.com/blog","ip":"63.29.38.212"}'
     @payload_3 = 'payload={"url":"http://jumpstartlab.com/story","ip":"63.29.38.213"}'
