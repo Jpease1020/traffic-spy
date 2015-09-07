@@ -15,7 +15,5 @@ class Event < ActiveRecord::Base
 
   def most_received_events(source)
     source.events.group(:event_name).count
-    # source.browsers.group(:browser).count
-    # binding.pry
   end
 end
