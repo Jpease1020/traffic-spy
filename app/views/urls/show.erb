@@ -23,12 +23,23 @@
       <h4>Average Response Time: <%= @average_response_time.to_i %></h4>
       <h4>HTTP Verbs:</h4>
       <% @requests.each do |request| %>
-        <%=request %>
+        <%= request %>
       </br>
         <% end %>
         <h4>Most Popular Referrers: </h4>
         <% @most_popular_referrers.each do |referrer| %>
-          <%= referrer[0] %>
+          <%= referrer %>
+          </br>
+        <% end %>
+        <h4>Most Popular Browsers: </h4>
+        <% @most_popular_browsers.each do |browser| %>
+          <%= browser %>
+          </br>
+        <% end %>
+
+        <h4>Most Popular Operating Systems: </h4>
+        <% @most_popular_os.each do |os| %>
+          <%= os %>
           </br>
         <% end %>
     </div>

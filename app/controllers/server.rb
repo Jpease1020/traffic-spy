@@ -98,14 +98,17 @@ module TrafficSpy
     end
 
     get '/sources/:identifier/urls/:path' do |identifier, path|
-      @source                 = Source.find_by_identifier(identifier)
-      @paths                  = Url.new.path_parser(@source)
-      @path                   = path
-      @requests               = Response.new.http_verbs(@source)
-      @longest_response_time  = Response.new.longest_response_time(@source)
-      @shortest_response_time = Response.new.shortest_response_time(@source)
-      @average_response_time  = Response.new.average_response_time(@source)
-      @most_popular_referrers = Referrer.new.most_popular_referrers(@source)
+      @source                   = Source.find_by_identifier(identifier)
+      @paths                    = Url.new.path_parser(@source)
+      @full_path                = Url.new.full_path(@source, path)
+      @path                     = path
+      @requests                 = Response.new.http_verbs(@source)
+      @longest_response_time    = Response.new.longest_response_time(@source)
+      @shortest_response_time   = Response.new.shortest_response_time(@source)
+      @average_response_time    = Response.new.average_response_time(@source)
+      @most_popular_referrers   = Referrer.new.most_popular_referrers(@full_path)
+      @most_popular_browsers    = Browser.new.most_popular_browsers(@full_path)
+      @most_popular_os          = Browser.new.most_popular_operating_systems(@full_path)
 
       if @paths.include?("/" + path)
         status 200

@@ -54,6 +54,20 @@ class BrowserTest < Minitest::Test
     assert_equal 2 , browser["Macintosh"]
   end
 
+  def test_it_finds_the_most_popular_operating_system
+    @payload_1 = 'payload={"url":"http://jumpstartlab.com/blog","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","ip":"63.29.38.211"}'
+    @payload_2 = 'payload={"url":"http://jumpstartlab.com/blog","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","ip":"63.29.38.212"}'
+    @payload_3 = 'payload={"url":"http://jumpstartlab.com/blog","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","ip":"63.29.38.213"}'
+
+    post "/sources/jumpstartlab/data", @payload_1
+    post "/sources/jumpstartlab/data", @payload_2
+    post "/sources/jumpstartlab/data", @payload_3
+
+    browsers = Browser.new.most_popular_browsers("http://jumpstartlab.com/blog")
+
+    assert_equal ["Chrome", 3] , browsers.map { |browser| browser }
+  end
+
   def teardown
     DatabaseCleaner.clean
   end

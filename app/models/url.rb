@@ -4,8 +4,14 @@ class Url < ActiveRecord::Base
   has_many :payloads
   has_one :source, through: :payloads
   has_many :responses, through: :payloads
+  has_many :referrers, through: :payloads
+  has_many :browsers, through: :payloads
 
   validates :url, presence: true, uniqueness: true
+
+  def full_path(source, partial_path)
+    (source.root_url + "/" + partial_path)
+  end
 
   def most_requested(source)
     slugs = source.urls.group(:url).count
@@ -15,7 +21,7 @@ class Url < ActiveRecord::Base
   end
 
   def path_parser(source)
-    paths = source.urls.map do |url|
+    source.urls.map do |url|
       URI(url.url).path
     end
   end

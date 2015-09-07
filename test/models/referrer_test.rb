@@ -26,17 +26,15 @@ class ReferrerTest < Minitest::Test
   end
 
   def test_it_finds_the_most_popular_referrers
-    @payload_1 = 'payload={"referredBy":"http://facebook.com/bad6e","ip":"63.29.38.213"}'
-    @payload_2 = 'payload={"referredBy":"http://jumpstartlab.com","ip":"63.29.38.211"}'
-    @payload_3 = 'payload={"referredBy":"http://jumpstartlab.com","ip":"63.29.38.212"}'
+    @payload_1 = 'payload={"url":"http://jumpstartlab.com/blog","referredBy":"http://facebook.com/bad6e","ip":"63.29.38.213"}'
+    @payload_2 = 'payload={"url":"http://jumpstartlab.com/blog","referredBy":"http://jumpstartlab.com","ip":"63.29.38.211"}'
+    @payload_3 = 'payload={"url":"http://jumpstartlab.com/blog","referredBy":"http://jumpstartlab.com","ip":"63.29.38.212"}'
 
     post "/sources/jumpstartlab/data", @payload_1
     post "/sources/jumpstartlab/data", @payload_2
     post "/sources/jumpstartlab/data", @payload_3
 
-    source = Source.first
-
-    assert_equal ["http://jumpstartlab.com", "http://facebook.com/bad6e"], Referrer.new.most_popular_referrers(source).map { |referrer, count| referrer }
+    assert_equal ["http://jumpstartlab.com", 2, "http://facebook.com/bad6e", 1],  Referrer.new.most_popular_referrers("http://jumpstartlab.com/blog")
 
   end
 
