@@ -14,6 +14,8 @@ class Event < ActiveRecord::Base
   end
 
   def most_received_events(source)
-    source.events.order(:event_name).uniq
+    source.events.group(:event_name).count
+    # source.browsers.group(:browser).count
+    # binding.pry
   end
 end

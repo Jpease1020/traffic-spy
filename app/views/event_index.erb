@@ -12,11 +12,10 @@
     <div class="col-md-12">
       <div id="most_received_events">
         <h3>Most Received to Least Received Events</h3>
-        <ol>
           <% @most_received_events.each do |event| %>
-            <li><%= event.event_name %></li>
+            <strong><%= event[0]%></strong>: <%= event[1] %>
+          </br>
             <% end %>
-        </ol>
       </div>
     </div>
   </div>
