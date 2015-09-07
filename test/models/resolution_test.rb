@@ -18,7 +18,7 @@ class ResolutionTest < Minitest::Test
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
   end
-
+g
   def test_it_has_the_correct_attributes
     assert_equal 0, Resolution.count
 
