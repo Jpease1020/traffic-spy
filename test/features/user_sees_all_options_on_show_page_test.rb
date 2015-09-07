@@ -52,7 +52,7 @@ class ShowPageFeatureTest < FeatureTest
   def test_it_shows_the_average_response
     within("#average_responses") do
       assert page.has_content?("Average Response Times")
-      #THERE STILL NEEDS TO BE ASSERTION HERE
+      assert page.has_content?("http://jumpstartlab.com/blog: 37ms")
     end
   end
 
