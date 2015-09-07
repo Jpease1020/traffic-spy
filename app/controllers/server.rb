@@ -130,6 +130,21 @@ module TrafficSpy
       end
     end
 
+    get '/sources/:identifier/events/:event' do |identifier, event|
+      @source = Source.find_by(identifier: identifier)
+      @event = Event.find_by(event_name: event)
+      @visits = @event.payloads.count
+      @visits_per_hour = Event.new.visits_per_hour(@event)
+
+      if @event
+        status 200
+        erb :"events/show"
+      else
+        status 400
+        not_found
+      end
+    end
+
     not_found do
       erb :error
     end

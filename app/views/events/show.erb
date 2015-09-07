@@ -1,0 +1,20 @@
+<h1><%= @event.event_name %> Stats</h1>
+<h4><%= @visits %></h4>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Hour</th>
+        <th>Visits</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% 24.times do |n| %>
+          <tr>
+            <td><%= n+1 %></td>
+            <td><%= @visits_per_hour.fetch(n+1, 0) %></td>
+          </tr>
+        <% end %>
+    </tbody>
+  </table>
+</div>
