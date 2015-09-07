@@ -24,7 +24,9 @@
       <div id="average_responses">
         <h3>Average Response Times</h3>
           <ul>
-            <li>PUT stuff here</li>
+            <% @average_response_times.each do |average| %>
+              <li><%= average[0].url %>: <%= average[1].to_i %>ms</li>
+            <% end %>
         </ul>
         </br>
       </div>

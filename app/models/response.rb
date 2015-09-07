@@ -8,6 +8,13 @@ class Response < ActiveRecord::Base
   validates :responded_in, presence: true
   validates :ip, presence: true
 
+  def average_response_times(source)
+    group = source.urls.uniq.map do |url|
+      [url, url.average_response_time]
+    end
+    group.sort_by { |_, time| time }.reverse
+  end
+
   def longest_response_time(source)
     source.responses.maximum(:responded_in)
   end

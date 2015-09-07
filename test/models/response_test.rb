@@ -34,17 +34,23 @@ class ResponseTest < Minitest::Test
   end
 
   def test_it_calculates_the_average_response_time_for_a_specific_url
-    assert_equal 0, Response.count
-    response_100 = Response.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 100,
-                            ip: "63.29.38.211",
-                            request_type: 'POST')
-    response_50 = Response.create(requested_at: "2013-02-16 21:38:28 -0700",
-                            responded_in: 50,
-                            ip: "63.29.38.212",
-                            request_type: 'GET')
-    assert_equal 2, Response.count
-    # average = Response.new.average_response_time("jumpstartlab")
+    @payload_1 = 'payload={"url":"http://jumpstartlab.com/blog","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":50,"ip":"63.29.38.211"}'
+    @payload_2 = 'payload={"url":"http://jumpstartlab.com/blog","eventName":"socialA","requestedAt":"2013-02-16 22:38:28 -0700","respondedIn":50,"ip":"63.29.38.212"}'
+    @payload_3 = 'payload={"url":"http://jumpstartlab.com/blog","eventName":"socialA","requestedAt":"2013-02-16 23:38:28 -0700","respondedIn":100,"ip":"63.29.38.213"}'
+    @payload_4 = 'payload={"url":"http://jumpstartlab.com/lessons/1","eventName":"socialA","requestedAt":"2013-02-16 22:38:28 -0700","respondedIn":100,"ip":"63.29.38.214"}'
+    @payload_5 = 'payload={"url":"http://jumpstartlab.com/lessons/1","eventName":"socialA","requestedAt":"2013-02-16 23:38:28 -0700","respondedIn":50,"ip":"63.29.38.215"}'
+
+    post "/sources/jumpstartlab/data", @payload_1
+    post "/sources/jumpstartlab/data", @payload_2
+    post "/sources/jumpstartlab/data", @payload_3
+    post "/sources/jumpstartlab/data", @payload_4
+    post "/sources/jumpstartlab/data", @payload_5
+
+    source = Source.find_by(identifier: "jumpstartlab")
+
+    average_response_times = Response.new.average_response_times(source)
+
+    assert_equal [63, 75], average_response_times.map { |_, time| time }
   end
 
   def test_it_calculates_the_http_verbs_used
@@ -65,7 +71,6 @@ class ResponseTest < Minitest::Test
     assert_equal 2, Payload.count
     assert_equal 2, Response.count
   end
-
 
   def teardown
     DatabaseCleaner.clean
