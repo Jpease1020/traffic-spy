@@ -8,20 +8,20 @@ class Response < ActiveRecord::Base
   validates :responded_in, presence: true
   validates :ip, presence: true
 
-  def longest_response_time(source)
-    source.responses.maximum(:responded_in)
+  def longest_response_time(url)
+    url.responses.maximum(:responded_in)
   end
 
-  def shortest_response_time(source)
-    source.responses.minimum(:responded_in)
+  def shortest_response_time(url)
+    url.responses.minimum(:responded_in)
   end
 
-  def average_response_time(source)
-    source.responses.average(:responded_in)
+  def average_response_time(url)
+    url.responses.average(:responded_in)
   end
 
-  def http_verbs(source)
-    source.responses.map do |response|
+  def http_verbs(url)
+    url.responses.map do |response|
       response.request_type
     end.uniq
   end
