@@ -47,7 +47,7 @@ class EventPageTest < FeatureTest
   def test_page_shows_most_received_to_least_received
     within("#most_received_events") do
       assert page.has_content?("Most Received to Least Received Events")
-      assert page.has_content?("socialLogin")
+      assert page.has_content?("socialLogin: 1")
     end
   end
 

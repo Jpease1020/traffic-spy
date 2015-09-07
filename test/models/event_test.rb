@@ -66,8 +66,8 @@ class EventTest < Minitest::Test
 
 
     event = Event.new.most_received_events(source)
-    assert_equal "socialLogin1", event.first.event_name
-    assert_equal "socialLogin2", event.last.event_name
+    assert_equal 3, event['socialLogin1']
+    assert_equal 2, event['socialLogin2']
 
     assert_equal 2, Event.count
     assert_equal 5, Payload.count
