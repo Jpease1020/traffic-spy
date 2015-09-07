@@ -4,12 +4,10 @@ class Referrer < ActiveRecord::Base
 
   validates :referred_by, presence: true, uniqueness: true
 
-  def most_popular_referrers(path)
-    url = Url.find_by(url: path)
+  def most_popular_referrers(url)
     if url.nil?
       return []
     end
-
     group_count = url.referrers.group(:referred_by).count
     group_count.sort_by { |_, count| count }.reverse.flatten
   end

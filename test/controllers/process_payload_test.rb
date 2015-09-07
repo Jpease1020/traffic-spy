@@ -77,8 +77,8 @@ class ProcessPayloadTest < Minitest::Test
 
   def test_it_checks_a_url_exists
     post "/sources/jumpstartlab/data", @payload
-
     get "/sources/jumpstartlab/urls/blog"
+
     assert_equal 200, last_response.status
 
     get "/sources/jumpstartlab/urls/dog"
@@ -90,13 +90,11 @@ class ProcessPayloadTest < Minitest::Test
     @payload_two = 'payload={"url":"http://jumpstartlab.com/blog","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17","resolutionWidth":"1920","resolutionHeight":"1280","requestedAt":"2013-02-16 21:38:28 -0700","respondedIn":37,"ip":"63.29.38.211","referredBy":"http://jumpstartlab.com","requestType":"POST"}'
 
     post "/sources/jumpstartlab/data", @payload_two
-
     get "/sources/jumpstartlab/events"
 
     assert_equal 404, last_response.status
 
     post "/sources/jumpstartlab/data", @payload
-
     get "/sources/jumpstartlab/events"
 
     assert_equal 200, last_response.status
