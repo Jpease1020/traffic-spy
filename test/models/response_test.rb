@@ -50,7 +50,7 @@ class ResponseTest < Minitest::Test
 
     average_response_times = Response.new.average_response_times(source)
 
-    assert_equal [63, 75], average_response_times.map { |_, time| time }
+    assert_equal [75, 66], average_response_times.map { |_, time| time.to_i }
   end
 
   def test_it_calculates_the_http_verbs_used
