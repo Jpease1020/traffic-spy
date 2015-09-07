@@ -22,10 +22,21 @@
           <% end %>
       </div>
 
-      <div id ="referrer">
+      <div id="referrer">
         <h4 id="referrers">Most Popular Referrers: </h4>
         <% @most_popular_referrers.each do |referrer| %>
-          <%= referrer[0] %>
+          <%= referrer %>
+          </br>
+        <% end %>
+        <h4>Most Popular Browsers: </h4>
+        <% @most_popular_browsers.each do |browser| %>
+          <%= browser %>
+          </br>
+        <% end %>
+
+        <h4>Most Popular Operating Systems: </h4>
+        <% @most_popular_os.each do |os| %>
+          <%= os %>
           </br>
         <% end %>
       </div>
