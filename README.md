@@ -1,6 +1,6 @@
-Test
+# Traffic Spy
+Used Sinatra and Active Record to build a web analytics tool.
 
-All of the things!!!
+The full project spec can be found here:
 
-
-I am updating the branch 
+[Traffic Spy](https://github.com/turingschool/curriculum/blob/master/source/projects/traffic_spy.markdown)
