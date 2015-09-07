@@ -1,7 +1,8 @@
+<%= erb(:'partials/nav_bar', :layout => true) %>
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
-      <div id= 'header'>
+      <div id='event-name'>
         <h1><%= @event.event_name.capitalize %> Stats</h1>
       </div>
     </div>
@@ -11,33 +12,34 @@
 <div class="container">
   <div class="row well">
     <div class="col-md-12">
-      <div id= 'hourly'>
+      <div id='hourly'>
         <h2>Total Visits: <%= @visits %></h2>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="container">
-  <div class="col-md-12">
-    <table class="table table-striped table-hover table-bordered">
-    </br>
-    <thead>
-      <tr>
-        <th>Hour</th>
-        <th>Visits</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% 24.times do |n| %>
-      <tr>
-        <td><%= n+1 %>:00</td>
-        <td><%= @visits_per_hour.fetch(n+1, 0) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-    </table>
+<div id='visit-table'>
+  <div class="container">
+    <div class="col-md-12">
+      <table class="table table-striped table-hover table-bordered" id="hourly-visit">
+      </br>
+      <thead>
+        <tr>
+          <th>Hour</th>
+          <th>Visits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% 24.times do |n| %>
+        <tr>
+          <td><%= n+1 %>:00</td>
+          <td><%= @visits_per_hour.fetch(n+1, 0) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
