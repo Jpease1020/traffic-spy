@@ -86,7 +86,21 @@ class UrlSpecificDataPageTest < FeatureTest
     end
   end
 
-  #Still need to add in Most Popular Browser  
+  def test_page_shows_most_popular_browser
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#browser") do
+      assert page.has_content?("Most Popular Browser")
+      assert page.has_content?("Chrome")
+    end
+  end
+
+  def test_page_shows_most_popular_operating_system
+    visit '/sources/jumpstartlab/urls/blog'
+    within("#os") do
+      assert page.has_content?("Most Popular Operating System")
+      assert page.has_content?("Macintosh")
+    end
+  end
 
   def teardown
     DatabaseCleaner.clean
