@@ -53,6 +53,7 @@ module TrafficSpy
                         resolution_width: payload_params['resolutionWidth'],
                         resolution_height: payload_params['resolutionHeight'])
         referrer = Referrer.find_or_create_by(referred_by: payload_params['referredBy'])
+        event = Event.find_or_create_by(event_name: payload_params['eventName'])
          #this is where we add everything else
 
         unless source.nil?
@@ -62,7 +63,8 @@ module TrafficSpy
                                   resolution_id: resolution.id,
                                   browser_id: browser.id,
                                   response_id: response.id,
-                                  referrer_id: referrer.id)
+                                  referrer_id: referrer.id,
+                                  event_id: event.id)
 
             if payload.save
               status 200
@@ -90,13 +92,6 @@ module TrafficSpy
       erb :show
     end
 
-    get '/sources/:identifier/events' do |identifier|
-      @source = Source.find_by_identifier(identifier)
-      @events = @source.events
-
-      erb :event_index
-    end
-
     get '/sources/:identifier/urls/:path' do |identifier, path|
       @source                   = Source.find_by_identifier(identifier)
       @paths                    = Url.new.path_parser(@source)
@@ -118,6 +113,19 @@ module TrafficSpy
         status 404
         body 'URL not found'
         not_found
+      end
+    end
+
+    get '/sources/:identifier/events' do |identifier|
+      @source = Source.find_by_identifier(identifier)
+      @events = @source.events
+
+      if @events.empty?
+        status 404
+        not_found
+      else
+        status 200
+        erb :event_index
       end
     end
 
