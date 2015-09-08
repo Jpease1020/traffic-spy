@@ -17,7 +17,6 @@ class ShowPageFeatureTest < FeatureTest
     assert_equal 1, Source.count
     assert_equal 200, last_response.status
 
-
     @payload = 'payload={"url":"http://jumpstartlab.com/blog",
                         "userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
                         "resolutionWidth":"1920",
@@ -26,7 +25,8 @@ class ShowPageFeatureTest < FeatureTest
                         "respondedIn":37,"ip":"63.29.38.211"}'
 
     post "/sources/jumpstartlab/data", @payload
-    visit '/sources/jumpstartlab'
+    page.driver.browser.authorize 'hello1', 'hello4'
+    visit "/sources/jumpstartlab"
   end
 
   def test_it_shows_a_nav_bar

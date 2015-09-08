@@ -27,30 +27,23 @@ class UrlSpecificDataPageTest < FeatureTest
                         "respondedIn":37,"ip":"63.29.38.211"}'
     post "/sources/jumpstartlab/data", @payload
 
-  end
+   visit '/sources/jumpstartlab/urls/blog'
 
-  def test_it_shows_a_nav_bar
-    within("#top-bar") do
-      assert page.has_content?("You are a Spy!")
-    end
   end
 
   def test_header_is_displayed
-    visit '/sources/jumpstartlab/urls/blog'
     within("#header") do
       assert page.has_content?("Url Specific Data")
     end
   end
 
   def test_identifier_and_path_are_displayed
-    visit '/sources/jumpstartlab/urls/blog'
     within("#source_path") do
       assert page.has_content?("jumpstartlab/blog")
     end
   end
 
   def test_longest_response_time_header_and_content_is_displayed
-    visit '/sources/jumpstartlab/urls/blog'
     within("#longest") do
       assert page.has_content?("Longest Response Time")
       assert page.has_content?("37")
@@ -58,7 +51,6 @@ class UrlSpecificDataPageTest < FeatureTest
   end
 
   def test_shortest_response_time_header_and_content_is_displayed
-    visit '/sources/jumpstartlab/urls/blog'
     within("#shortest") do
       assert page.has_content?("Shortest Response Time")
       assert page.has_content?("37")
@@ -66,7 +58,6 @@ class UrlSpecificDataPageTest < FeatureTest
   end
 
   def test_average_response_time_header_and_content_is_displayed
-    visit '/sources/jumpstartlab/urls/blog'
     within("#average") do
       assert page.has_content?("Average Response Time")
       assert page.has_content?("37")
@@ -74,7 +65,6 @@ class UrlSpecificDataPageTest < FeatureTest
   end
 
   def test_http_verbs
-    visit '/sources/jumpstartlab/urls/blog'
     within("#http_verbs") do
       assert page.has_content?("HTTP Verbs")
       assert page.has_content?("GET")
@@ -82,7 +72,6 @@ class UrlSpecificDataPageTest < FeatureTest
   end
 
   def test_page_shows_most_popular_referrers
-    visit '/sources/jumpstartlab/urls/blog'
     within("#referrers") do
       assert page.has_content?("Most Popular Referrers")
     end
@@ -93,7 +82,6 @@ class UrlSpecificDataPageTest < FeatureTest
   end
 
   def test_page_shows_most_popular_browser
-    visit '/sources/jumpstartlab/urls/blog'
     within("#browser") do
       assert page.has_content?("Most Popular Browser")
       assert page.has_content?("Chrome")
@@ -101,16 +89,9 @@ class UrlSpecificDataPageTest < FeatureTest
   end
 
   def test_page_shows_most_popular_operating_system
-    visit '/sources/jumpstartlab/urls/blog'
     within("#os") do
       assert page.has_content?("Most Popular Operating System")
       assert page.has_content?("Macintosh")
-    end
-  end
-
-   def test_it_shows_a_footer
-    within("#footer") do
-      assert page.has_content?("LLC")
     end
   end
 
