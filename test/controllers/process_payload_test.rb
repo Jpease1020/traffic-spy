@@ -100,6 +100,23 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 200, last_response.status
   end
 
+  def test_without_authentication
+    get '/sources/jumpstartlab'
+    assert_equal 401, last_response.status
+  end
+
+  def test_with_bad_credentials
+    authorize 'bad', 'boy'
+    get '/sources/jumpstartlab'
+    assert_equal 401, last_response.status
+  end
+
+  def test_with_proper_credentials
+    authorize 'hello1', 'hello4'
+    get '/sources/jumpstartlab'
+    assert_equal 200, last_response.status
+  end
+
   def teardown
     DatabaseCleaner.clean
   end

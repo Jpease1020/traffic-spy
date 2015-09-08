@@ -2,6 +2,19 @@ module TrafficSpy
 
   class Server < Sinatra::Base
 
+    helpers do
+      def protected!
+        return if authorized?
+        headers['WWW-Authenticate'] = 'Basic realm="Restricted Area"'
+        halt 401, "Not authorized\n"
+      end
+
+      def authorized?
+        @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+        @auth.provided? and @auth.basic? and @auth.credentials and @auth.credentials == ['hello1', 'hello4']
+      end
+    end
+
     get '/' do
       erb :index
     end
@@ -24,7 +37,6 @@ module TrafficSpy
     end
 
     post "/sources/:identifier/data" do |identifier|
-
       if params['payload'] == nil
         status 400
         body 'Bad Request - Needs a payload'
@@ -54,7 +66,6 @@ module TrafficSpy
                         resolution_height: payload_params['resolutionHeight'])
         referrer = Referrer.find_or_create_by(referred_by: payload_params['referredBy'])
         event = Event.find_or_create_by(event_name: payload_params['eventName'])
-         #this is where we add everything else
 
         unless source.nil?
             payload = Payload.new(digest: digest,
@@ -81,6 +92,7 @@ module TrafficSpy
     end
 
     get '/sources/:identifier' do |identifier|
+      protected!
       @source             = Source.find_by_identifier(identifier)
       @slugs              = Url.new.most_requested(@source)
       @average_responses  = Response.new.average_response_time(@source)

@@ -17,6 +17,7 @@ require 'mrspec'
 DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migration]}
 
 Capybara.app = TrafficSpy::Server
+Capybara.save_and_open_page_path = "/tmp"
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
