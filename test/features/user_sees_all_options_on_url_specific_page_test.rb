@@ -95,6 +95,11 @@ class UrlSpecificDataPageTest < FeatureTest
     end
   end
 
+  def test_page_has_link_to_dashbaord
+    click_link "Dashboard"
+    assert "/sources/jumpstartlab/", current_path
+  end
+
   def teardown
     DatabaseCleaner.clean
   end
