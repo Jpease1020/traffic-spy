@@ -50,4 +50,13 @@
   </div>
 </div>
 
+<div class="container">
+  <div class="row well">
+    <div class="col-md-12">
+      <a href="http://localhost:9393/sources/<%= @source.identifier %>"><%=
+      @source.identifier.capitalize %> Dashboard</a>
+    </div>
+  </div>
+</div>
+
 <%= erb(:'partials/footer', :layout => true) %>
