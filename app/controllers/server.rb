@@ -137,6 +137,7 @@ module TrafficSpy
       @event = Event.find_by(event_name: event)
       @visits = @event.payloads.count
       @visits_per_hour = Event.new.visits_per_hour(@event)
+      @event_name = Event.new.make_new_words(@event.event_name).join(" ")
 
       if @event
         status 200

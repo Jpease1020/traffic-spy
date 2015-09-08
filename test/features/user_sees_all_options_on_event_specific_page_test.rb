@@ -40,7 +40,7 @@ class EventSpecificDataPageTest < FeatureTest
 
   def test_page_shows_header
     within("#event-name") do
-      assert page.has_content?("Sociallogin Stats")
+      assert page.has_content?("Social Login Stats")
     end
   end
 
