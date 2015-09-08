@@ -51,6 +51,26 @@ class ProcessPayloadTest < Minitest::Test
     assert_equal 1, Campaign.count
   end
 
+  def test_it_registers_an_abcd_campaign
+    payload_1 = 'payload={"eventName":"addedSocialThroughPromptA","ip":"63.29.38.211"}'
+    payload_2 = 'payload={"eventName":"addedSocialThroughPromptB","ip":"63.29.38.212"}'
+    payload_3 = 'payload={"eventName":"addedSocialThroughPromptC","ip":"63.29.38.213"}'
+    payload_4 = 'payload={"eventName":"addedSocialThroughPromptD","ip":"63.29.38.214"}'
+
+
+    post "/sources/jumpstartlab/data", payload_1
+    post "/sources/jumpstartlab/data", payload_2
+    post "/sources/jumpstartlab/data", payload_3
+    post "/sources/jumpstartlab/data", payload_4
+
+    attributes =  'campaignName=socialSignup&eventNames[]=addedSocialThroughPrompA&eventNames[]=addedSocialThroughPrompB&eventNames[]=addedSocialThroughPrompC&eventNames[]=addedSocialThroughPrompD'
+
+    post "/sources/jumpstartlab/campaigns", attributes
+
+    assert_equal 200, last_response.status
+    assert_equal 1, Campaign.count
+  end
+
   def teardown
     DatabaseCleaner.clean
   end
