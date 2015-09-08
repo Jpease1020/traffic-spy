@@ -66,10 +66,10 @@ module TrafficSpy
                                   referrer_id: referrer.id,
                                   event_id: event.id)
 
-            if payload.save
-              status 200
-              body "OK"
-            end
+        if payload.save
+          status 200
+          body "OK"
+        end
         else
           status 403
           body 'Forbidden - Must have registered identifier'
@@ -144,6 +144,31 @@ module TrafficSpy
       else
         status 400
         not_found
+      end
+    end
+
+    post '/sources/:identifier/campaigns' do |identifier|
+      Source.find_by(identifier: identifier)
+      campaign_name = params.fetch("campaignName", nil)
+      event_names = params.fetch("eventNames", [])
+
+      if event_names.empty? || campaign_name.nil?
+        status 400
+        body "Missing some params"
+      elsif Campaign.exists?(name: campaign_name.strip)
+        status 403
+        body "Campaign already exists"
+      else
+        @campaign = Campaign.new(name: campaign_name.strip)
+        if @campaign.save
+          status 200
+          @events = event_names.map { |name| Event.find_by(event_name: name.strip) }
+          @campaign = Campaign.find_by(name: campaign_name.strip)
+
+          # @events.each do |event|
+            # @campaign.events << event
+          # end
+        end
       end
     end
 

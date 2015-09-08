@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   has_many :payloads
   has_one :source, through: :payloads
   has_many :responses, through: :payloads
+  has_and_belongs_to_many :campaigns
 
   validates :event_name, presence: true, uniqueness: true
 
